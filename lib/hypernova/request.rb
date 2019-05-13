@@ -2,7 +2,7 @@ require "hypernova/faraday_request"
 require "hypernova/http_client_request"
 
 class Hypernova::Request
-  def initialize(jobs, opts)
+  def initialize(jobs, opts = {})
     @jobs = jobs
     @opts = opts
   end
@@ -25,7 +25,6 @@ class Hypernova::Request
   end
 
   def post
-    puts "Hypernova::Request:> #{opts}"
     if Hypernova.configuration.http_client
       Hypernova::HttpClientRequest.post(payload, @opts)
     else

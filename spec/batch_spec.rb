@@ -27,7 +27,7 @@ RSpec.describe Hypernova::Batch do
 
   describe :submit! do
     it "calls the service's render_batch method with a hash of jobs" do
-      expect(service).to receive(:render_batch).with({})
+      expect(service).to receive(:render_batch).with({}, {})
       batcher = Hypernova::Batch.new(service)
       batcher.submit!
     end

@@ -20,7 +20,7 @@ describe Hypernova::Request do
         Hypernova.configure { |config| config.http_client = double("http_client") }
 
         allow(Hypernova::HttpClientRequest).to receive(:post).and_return(response)
-        expect(Hypernova::HttpClientRequest).to receive(:post).with(payload)
+        expect(Hypernova::HttpClientRequest).to receive(:post).with(payload, {})
         expect(described_class.new(jobs).body).to eq(response.body)
       end
     end
@@ -28,7 +28,7 @@ describe Hypernova::Request do
     context "when Hypernova is not configured to use an http_client" do
       it "calls post on Hypernova::FaradayRequest" do
         allow(Hypernova::FaradayRequest).to receive(:post).and_return(response)
-        expect(Hypernova::FaradayRequest).to receive(:post).with(payload)
+        expect(Hypernova::FaradayRequest).to receive(:post).with(payload, {})
         expect(described_class.new(jobs).body).to eq(response.body)
       end
     end

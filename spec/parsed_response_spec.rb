@@ -9,7 +9,7 @@ describe Hypernova::ParsedResponse do
       request = double("request")
       response = double("response", parsed_body: parsed_body)
 
-      allow(Hypernova::Request).to receive(:new).with(jobs).and_return(request)
+      allow(Hypernova::Request).to receive(:new).with(jobs, {}).and_return(request)
       allow(Hypernova::Response).to receive(:new).with(request).and_return(response)
 
       expect(described_class.new(jobs).body).to eq(parsed_body)
@@ -23,7 +23,7 @@ describe Hypernova::ParsedResponse do
       request = double("request")
       response = double("response", parsed_body: parsed_body)
 
-      allow(Hypernova::Request).to receive(:new).with(jobs).and_return(request)
+      allow(Hypernova::Request).to receive(:new).with(jobs, {}).and_return(request)
       allow(Hypernova::Response).to receive(:new).with(request).and_return(response)
 
 

@@ -180,7 +180,7 @@ describe Hypernova::ControllerHelpers do
     context "when no error is raised" do
       it "calls get_view_data and hypernova_batch_render" do
         allow(test).to receive(:get_view_data).with(name, data).and_return(new_data)
-        allow(test).to receive(:hypernova_batch_render).with(job).and_return(result)
+        allow(test).to receive(:hypernova_batch_render).with(job, {}).and_return(result)
 
         expect(test.render_react_component(name, data)).to equal(result)
       end
@@ -195,7 +195,7 @@ describe Hypernova::ControllerHelpers do
           with({
             data: data,
             name: name,
-          }).
+          }, {}).
           and_return(result)
 
         expect(test).to receive(:on_error).with(error)
@@ -231,7 +231,7 @@ describe Hypernova::ControllerHelpers do
             :test => 2,
             :what => 'what?'
           }
-        })
+        }, {})
         full_controller.render_react_component('test', request_data)
       end
     end
@@ -304,7 +304,7 @@ describe Hypernova::ControllerHelpers do
               :what => 'who?'
             }
           }
-        })
+        }, {})
         full_controller.render_react_component('test', request_data)
         full_controller.make_response('hello world')
         full_controller.send(:hypernova_batch_after)

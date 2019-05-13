@@ -128,7 +128,7 @@ module Helpers
 
   # Bogus example batch service
   class TokenIdentityService
-    def render_batch(jobs)
+    def render_batch(jobs, opts)
       jobs.keys.inject({}) do |map, k|
         map[k.to_s] = k.to_s
         map

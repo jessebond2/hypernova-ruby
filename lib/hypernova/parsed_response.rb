@@ -2,7 +2,7 @@ require "hypernova/request"
 require "hypernova/response"
 
 class Hypernova::ParsedResponse
-  def initialize(jobs, opts)
+  def initialize(jobs, opts = {})
     @jobs = jobs
     @opts = opts
   end

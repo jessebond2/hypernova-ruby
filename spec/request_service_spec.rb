@@ -28,7 +28,7 @@ describe Hypernova::RequestService do
         allow(Hypernova::BatchRenderer).to receive(:new).with(jobs).and_return(batch_renderer)
         allow(Hypernova::ParsedResponse).
           to receive(:new).
-          with(jobs).
+          with(jobs, {}).
           and_return(parsed_response)
       end
 

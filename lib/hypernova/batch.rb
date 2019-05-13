@@ -5,7 +5,7 @@ module Hypernova
     extend Forwardable
 
     attr_accessor :service
-    attr_reader :jobs
+    attr_reader :jobs, :opts
 
     def_delegators :jobs, :empty?
 
@@ -21,10 +21,10 @@ module Hypernova
       @service = service
     end
 
-    def render(job, _opts = {})
+    def render(job, opts = {})
       Hypernova.verify_job_shape(job)
       token = jobs.length
-      @opts = _opts
+      @opts = opts
       jobs << job
       token.to_s
     end

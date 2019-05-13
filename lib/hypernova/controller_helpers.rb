@@ -19,7 +19,7 @@ module Hypernova
 
     ##
     # enqueue a render into the current request's hypernova batch
-    def hypernova_batch_render(job, opts)
+    def hypernova_batch_render(job, opts = {})
       if @hypernova_batch.nil?
         raise NilBatchError.new('called hypernova_batch_render without calling '\
           'hypernova_batch_before. Check your around_filter for :hypernova_render_support')
