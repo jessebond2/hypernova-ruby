@@ -5,9 +5,10 @@ require "hypernova/plugin_helper"
 class Hypernova::RequestService
   include Hypernova::PluginHelper
 
-  def render_batch(jobs)
+  def render_batch(jobs, opts = {})
     return render_batch_blank(jobs) if jobs.empty?
-    response_body = Hypernova::ParsedResponse.new(jobs).body
+    puts "Hypernova::RequestService:> #{opts}"
+    response_body = Hypernova::ParsedResponse.new(jobs, opts).body
     response_body.each do |index_string, resp|
       on_error(build_error(resp["error"]), jobs[index_string]) if resp["error"]
     end

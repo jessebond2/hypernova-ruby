@@ -2,8 +2,9 @@ require "hypernova/request"
 require "hypernova/response"
 
 class Hypernova::ParsedResponse
-  def initialize(jobs)
+  def initialize(jobs, opts)
     @jobs = jobs
+    @opts = opts
   end
 
   def body
@@ -12,10 +13,10 @@ class Hypernova::ParsedResponse
 
   private
 
-  attr_reader :jobs
+  attr_reader :jobs, :opts
 
   def request
-    Hypernova::Request.new(jobs)
+    Hypernova::Request.new(jobs, opts)
   end
 
   def response

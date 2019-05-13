@@ -17,18 +17,20 @@ module Hypernova
     def initialize(service)
       # TODO: make hashmap instead????
       @jobs = []
+      @opts = {}
       @service = service
     end
 
-    def render(job)
+    def render(job, _opts = {})
       Hypernova.verify_job_shape(job)
       token = jobs.length
+      @opts = _opts
       jobs << job
       token.to_s
     end
 
     def submit!
-      service.render_batch(jobs_hash)
+      service.render_batch(jobs_hash, @opts)
     end
 
     def submit_fallback!

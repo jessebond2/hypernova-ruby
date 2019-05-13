@@ -2,12 +2,13 @@ require "faraday"
 require "hypernova/batch_url_builder"
 
 class Hypernova::FaradayConnection
-  def self.build
+  def self.build(opts)
     configuration = Hypernova.configuration
+    puts "Hypernova::FaradayConnection.build: #{opts}"
     Faraday.new(
       request: {
-        open_timeout: configuration.open_timeout,
-        timeout: configuration.timeout,
+        open_timeout: opts[:open_timeout] || configuration.open_timeout,
+        timeout: opts[:timeout] || configuration.timeout,
       },
       url: Hypernova::BatchUrlBuilder.base_url,
     ) do |builder|

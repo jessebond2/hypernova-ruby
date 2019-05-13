@@ -2,8 +2,9 @@ require "hypernova/faraday_request"
 require "hypernova/http_client_request"
 
 class Hypernova::Request
-  def initialize(jobs)
+  def initialize(jobs, opts)
     @jobs = jobs
+    @opts = opts
   end
 
   def body
@@ -12,7 +13,7 @@ class Hypernova::Request
 
   private
 
-  attr_reader :jobs
+  attr_reader :jobs, :opts
 
   def payload
     {
@@ -24,10 +25,11 @@ class Hypernova::Request
   end
 
   def post
+    puts "Hypernova::Request:> #{opts}"
     if Hypernova.configuration.http_client
-      Hypernova::HttpClientRequest.post(payload)
+      Hypernova::HttpClientRequest.post(payload, @opts)
     else
-      Hypernova::FaradayRequest.post(payload)
+      Hypernova::FaradayRequest.post(payload, @opts)
     end
   end
 end

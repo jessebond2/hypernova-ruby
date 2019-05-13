@@ -19,12 +19,12 @@ module Hypernova
 
     ##
     # enqueue a render into the current request's hypernova batch
-    def hypernova_batch_render(job)
+    def hypernova_batch_render(job, opts)
       if @hypernova_batch.nil?
         raise NilBatchError.new('called hypernova_batch_render without calling '\
           'hypernova_batch_before. Check your around_filter for :hypernova_render_support')
       end
-      batch_token = @hypernova_batch.render(job)
+      batch_token = @hypernova_batch.render(job, opts)
       template_safe_token = Hypernova.render_token(batch_token)
       @hypernova_batch_mapping[template_safe_token] = batch_token
       template_safe_token
@@ -35,7 +35,7 @@ module Hypernova
     # @param [String] name the hypernova bundle name, like 'packages/p3/foo.bundle.js' (for now)
     # @param [Hash] props the props to be passed to the component
     # :^)k|8 <-- this is a chill peep riding a skateboard
-    def render_react_component(component, data = {})
+    def render_react_component(component, data = {}, opts = {})
       begin
         new_data = get_view_data(component, data)
       rescue StandardError => e
@@ -47,7 +47,7 @@ module Hypernova
         :name => component,
       }
 
-      hypernova_batch_render(job)
+      hypernova_batch_render(job, opts)
     end
 
     ##
